@@ -8,7 +8,7 @@ from api.get_distance import get_distance
 
 
 
-df = pd.read_csv("card_transdata.csv")
+df = pd.read_csv("datasets/card_transdata.csv")
 from sklearn.model_selection import train_test_split
 # iloc : takes a slice of the dataframe
 X = df.iloc[: , :-1]

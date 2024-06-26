@@ -7,4 +7,4 @@ def get_names():
 
     return list_of_places
 
-print(get_names())
+
