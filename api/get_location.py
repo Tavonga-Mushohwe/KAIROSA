@@ -1,7 +1,7 @@
 def location_lat_long(place):
     """Returns the name of the location based on the latitude and longitude coordinates."""
     import pandas as pd
-    df = pd.read_csv("./places.csv")
+    df = pd.read_csv("datasets/places.csv")
 
     place = df[df["name"] == place ]
     long=place["longitude"].to_list()

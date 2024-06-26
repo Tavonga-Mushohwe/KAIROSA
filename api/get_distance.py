@@ -1,20 +1,3 @@
-import random
-import geocoder
-def calculate_distance(user_lat,user_lon,shop_address):
-    """Calculate the distance from home the shop and the shop address"""
-    try:
-        shop_location = geocoder.geocode(shop_address)
-        shop_lat = shop_location.latitude
-        shop_lon = shop_location.longitude
-        from geopy.distance import geodesic
-        distance_km = geodesic((user_lat,user_lon),(shop_lat,shop_lon)).km
-        return distance_km
-
-    except:
-        distance_km = random.randint(1,1000)
-        return distance_km
-        
-# print(calculate_distance(-17.746966,30.983202,"Irene College"))
 
 def get_distance(destination):
     """Calculate the distance from home the shop and the shop address"""
