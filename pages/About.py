@@ -14,6 +14,7 @@ st.write("- Nowadays people use the so called ‘plastic money’ and shopping o
 st.write("- But the challenge comes in on the safety of your money and if the thing you want to purchase is actually real or just some Indian guy waiting for his next cut .")
 st.write("- That is why I thought of a way to minimise the risk of sending money and end up getting scammed.")
 st.write("- And this solution is Kairosa . ")
+st.image("images\pexels-mikhail-nilov-7534380.jpg")
 
 st.write("\n")
 st.write("Side note :")

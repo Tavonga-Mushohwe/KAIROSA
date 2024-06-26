@@ -1,8 +1,12 @@
 import streamlit as st
-import pickle 
-import sklearn 
+from api.get_names import get_names
+from api.get_location import location_lat_long
+import random
 import pandas as pd
-import numpy as np
+from api.get_location import location_lat_long
+from api.get_distance import get_distance
+
+
 
 df = pd.read_csv("card_transdata.csv")
 from sklearn.model_selection import train_test_split
@@ -15,21 +19,30 @@ from sklearn.tree import DecisionTreeClassifier
 dtc = DecisionTreeClassifier()
 dtc.fit(X=X_train , y= y_train)
 
+names = get_names()
+names.append("")
 st.title("Kairosa - Fraud detection Machine Learning Model 🤖")
 
 st.write("Enter The related information \n")
-distance_from_home = st.number_input("Distance from Home")
-distance_from_last_transaction = st.number_input("Distance from Last transaction")
-ratio_to_median_purchase_price = st.number_input("ratio_to_median_purchase_price")
+shop_address = st.selectbox("What place is the shop you were going to buy ?" ,options=names)
+last_transaction = st.selectbox("Have you sent money before and where, if no leave blank", options= names)
+
+ratio_to_median_purchase_price = st.number_input("How much were you going to pay for it")
 repeat_retailer = st.selectbox("Have you used this retailer before ?",['Yes','No'])
 used_chip = st.selectbox("Have you used this card before ?",["Yes","No"])
 used_pin_number = st.selectbox("Is the pin number used for other cards ?",["Yes","No"])
 online_order = st.selectbox("Was it an online order or physical payment ?",["Yes, it was an online payment","No, physical payment"])
 submit = st.button(label="Submit",)
+shop_address = get_distance(location_lat_long(shop_address))
 
+if last_transaction == "":
+    last_transaction = random.random()
 
-
+else:
+    last_transaction = get_distance(location_lat_long(last_transaction))
+    
 if repeat_retailer =="Yes" :
+
     repeat_retailer = 1
 else:
     repeat_retailer = 0
@@ -55,7 +68,7 @@ def predictions(user_input:list):
     result = dtc.predict([user_input])
     return result
 
-user_input = [distance_from_home,distance_from_last_transaction,ratio_to_median_purchase_price,repeat_retailer,used_chip,used_pin_number,online_order]
+user_input = [shop_address,last_transaction,ratio_to_median_purchase_price,repeat_retailer,used_chip,used_pin_number,online_order]
 
 
 if submit :
